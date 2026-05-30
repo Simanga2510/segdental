@@ -1,0 +1,2759 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SEG Dental Care – Smart Booking System</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navy: #0b2545;
+        --navy2: #163c70;
+        --navy3: #1e4f96;
+        --teal: #0d7377;
+        --teal2: #14a085;
+        --teal3: #1abc9c;
+        --green: #0e7c4a;
+        --green2: #16a764;
+        --green3: #00d68f;
+        --gold: #f4c430;
+        --gold2: #e6b800;
+        --red: #e53e3e;
+        --red2: #fc8181;
+        --off: #f0f4fb;
+        --off2: #e8eef8;
+        --white: #ffffff;
+        --border: #cdd8ec;
+        --border2: #e4ecf8;
+        --muted: #6b7a99;
+        --muted2: #9aabcc;
+        --text: #0b2545;
+        --wa: #25d366;
+        --wa2: #128c7e;
+        --shadow-sm: 0 2px 12px rgba(11, 37, 69, 0.08);
+        --shadow: 0 6px 30px rgba(11, 37, 69, 0.12);
+        --shadow-lg: 0 16px 60px rgba(11, 37, 69, 0.18);
+        --r: 16px;
+        --r-sm: 10px;
+        --r-lg: 24px;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Outfit", sans-serif;
+        background: var(--off);
+        color: var(--text);
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      /* ═══ NAV ═══ */
+      .topnav {
+        background: var(--navy);
+        padding: 0 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 60px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.25);
+      }
+      .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: white;
+      }
+      .nav-logo {
+        width: 36px;
+        height: 36px;
+        background: linear-gradient(135deg, var(--teal3), var(--green2));
+        border-radius: 10px;
+        display: grid;
+        place-items: center;
+        font-size: 18px;
+      }
+      .nav-name {
+        font-weight: 700;
+        font-size: 15px;
+        letter-spacing: 0.02em;
+      }
+      .nav-name span {
+        color: var(--teal3);
+      }
+      .nav-tabs {
+        display: flex;
+        gap: 4px;
+      }
+      .nav-tab {
+        padding: 6px 16px;
+        border-radius: 8px;
+        border: none;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.5);
+        font-family: "Outfit", sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .nav-tab:hover {
+        color: white;
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .nav-tab.active {
+        color: white;
+        background: rgba(255, 255, 255, 0.15);
+      }
+      .nav-tab .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--teal3);
+        opacity: 0;
+        transition: opacity 0.2s;
+      }
+      .nav-tab.active .dot {
+        opacity: 1;
+      }
+      @media (max-width: 600px) {
+        .nav-tabs {
+          gap: 2px;
+        }
+        .nav-tab {
+          padding: 6px 10px;
+          font-size: 12px;
+        }
+      }
+
+      /* ═══ VIEWS ═══ */
+      .view {
+        display: none;
+      }
+      .view.active {
+        display: block;
+      }
+
+      /* ═══ HERO ═══ */
+      .hero {
+        background: linear-gradient(
+          135deg,
+          var(--navy) 0%,
+          var(--navy2) 40%,
+          var(--teal) 100%
+        );
+        padding: 52px 24px 100px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse 700px 400px at 90% -20%,
+            rgba(0, 214, 143, 0.15) 0%,
+            transparent 70%
+          ),
+          radial-gradient(
+            ellipse 500px 500px at -10% 110%,
+            rgba(20, 160, 133, 0.12) 0%,
+            transparent 60%
+          );
+      }
+      .hero-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+      }
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 680px;
+        margin: 0 auto;
+      }
+      .hero-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 40px;
+        padding: 8px 18px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--teal3);
+        margin-bottom: 22px;
+        backdrop-filter: blur(8px);
+      }
+      .hero h1 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2.2rem, 7vw, 3.8rem);
+        font-weight: 700;
+        color: white;
+        line-height: 1.1;
+        margin-bottom: 14px;
+      }
+      .hero h1 em {
+        font-style: italic;
+        color: var(--teal3);
+      }
+      .hero p {
+        color: rgba(255, 255, 255, 0.65);
+        font-size: 15px;
+        line-height: 1.7;
+        max-width: 480px;
+        margin: 0 auto 32px;
+      }
+      .hero-stats {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .hero-stat {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 12px;
+        padding: 12px 20px;
+        backdrop-filter: blur(6px);
+      }
+      .hero-stat .num {
+        font-weight: 700;
+        font-size: 20px;
+        color: var(--teal3);
+      }
+      .hero-stat .lbl {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.5);
+        margin-top: 2px;
+      }
+
+      /* ═══ MAIN LAYOUT ═══ */
+      .main {
+        max-width: 860px;
+        margin: -52px auto 60px;
+        padding: 0 16px;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* ═══ BOOKING CARD ═══ */
+      .card {
+        background: white;
+        border-radius: var(--r-lg);
+        box-shadow: var(--shadow-lg);
+        overflow: hidden;
+      }
+
+      /* ═══ PROGRESS BAR ═══ */
+      .progress-wrap {
+        padding: 20px 28px 0;
+        background: white;
+      }
+      .progress-steps {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .ps {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex: 1;
+        cursor: default;
+      }
+      .ps-num {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+        font-size: 13px;
+        border: 2px solid var(--border);
+        background: white;
+        color: var(--muted);
+        transition: all 0.3s;
+        flex-shrink: 0;
+      }
+      .ps-info {
+        min-width: 0;
+      }
+      .ps-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--muted);
+        transition: color 0.3s;
+        white-space: nowrap;
+      }
+      .ps-sub {
+        font-size: 10px;
+        color: var(--muted2);
+        white-space: nowrap;
+      }
+      .ps.active .ps-num {
+        background: var(--navy);
+        border-color: var(--navy);
+        color: white;
+      }
+      .ps.active .ps-label {
+        color: var(--navy);
+      }
+      .ps.done .ps-num {
+        background: var(--green2);
+        border-color: var(--green2);
+        color: white;
+      }
+      .ps.done .ps-label {
+        color: var(--green2);
+      }
+      .ps-line {
+        flex: 1;
+        height: 2px;
+        background: var(--border2);
+        margin: 0 8px;
+        border-radius: 2px;
+        transition: background 0.4s;
+      }
+      .ps-line.done {
+        background: var(--green2);
+      }
+      @media (max-width: 520px) {
+        .ps-info {
+          display: none;
+        }
+        .ps-line {
+          margin: 0 4px;
+        }
+      }
+
+      .progress-bar-track {
+        height: 3px;
+        background: var(--border2);
+        border-radius: 3px;
+        margin-bottom: 0;
+        overflow: hidden;
+      }
+      .progress-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--teal2), var(--green3));
+        border-radius: 3px;
+        transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* ═══ SECTIONS ═══ */
+      .section {
+        display: none;
+        padding: 30px 28px 32px;
+        animation: slideUp 0.35s ease both;
+      }
+      .section.active {
+        display: block;
+      }
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .sec-head {
+        margin-bottom: 24px;
+      }
+      .sec-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--navy);
+        margin-bottom: 4px;
+      }
+      .sec-sub {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      /* ═══ PATIENT TYPE TOGGLE ═══ */
+      .pt-toggle {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 28px;
+      }
+      .pt-btn {
+        border: 2px solid var(--border);
+        border-radius: 14px;
+        padding: 16px;
+        cursor: pointer;
+        transition: all 0.25s;
+        text-align: center;
+        background: white;
+      }
+      .pt-btn:hover {
+        border-color: var(--navy2);
+      }
+      .pt-btn.selected {
+        border-color: var(--navy);
+        background: linear-gradient(135deg, #f0f6ff, #e8f0ff);
+      }
+      .pt-btn .pt-icon {
+        font-size: 28px;
+        margin-bottom: 6px;
+      }
+      .pt-btn .pt-name {
+        font-weight: 700;
+        font-size: 14px;
+        color: var(--navy);
+      }
+      .pt-btn .pt-desc {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+
+      /* ═══ SERVICES ═══ */
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 12px;
+        margin-bottom: 8px;
+      }
+      .svc-card {
+        border: 2px solid var(--border);
+        border-radius: 14px;
+        padding: 18px;
+        cursor: pointer;
+        transition: all 0.25s;
+        position: relative;
+        overflow: hidden;
+        background: white;
+      }
+      .svc-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--teal2), var(--green2));
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s;
+      }
+      .svc-card:hover {
+        border-color: var(--navy2);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+      }
+      .svc-card:hover::before {
+        transform: scaleX(1);
+      }
+      .svc-card.selected {
+        border-color: var(--teal2);
+        background: linear-gradient(135deg, #f0fffd, #e6fff8);
+      }
+      .svc-card.selected::before {
+        transform: scaleX(1);
+      }
+      .svc-check {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 22px;
+        height: 22px;
+        background: var(--green2);
+        color: white;
+        border-radius: 50%;
+        font-size: 11px;
+        font-weight: 700;
+        display: none;
+        place-items: center;
+      }
+      .svc-card.selected .svc-check {
+        display: grid;
+      }
+      .svc-icon {
+        font-size: 28px;
+        margin-bottom: 10px;
+      }
+      .svc-name {
+        font-weight: 700;
+        font-size: 14px;
+        color: var(--navy);
+        margin-bottom: 4px;
+      }
+      .svc-desc {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.4;
+        margin-bottom: 10px;
+      }
+      .svc-price-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .svc-price {
+        font-weight: 700;
+        font-size: 16px;
+        color: var(--teal);
+      }
+      .svc-dur {
+        font-size: 11px;
+        color: var(--muted2);
+        background: var(--off2);
+        padding: 3px 9px;
+        border-radius: 20px;
+      }
+      .svc-badge {
+        display: inline-block;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 2px 8px;
+        border-radius: 10px;
+        margin-bottom: 6px;
+      }
+      .badge-popular {
+        background: #fff3cd;
+        color: #856404;
+      }
+      .badge-new {
+        background: #d1fae5;
+        color: #065f46;
+      }
+      .badge-urgent {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+
+      /* ═══ URGENCY ═══ */
+      .urgency-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+      .urg-btn {
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        padding: 12px 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+        background: white;
+      }
+      .urg-btn .urg-icon {
+        font-size: 20px;
+        margin-bottom: 4px;
+      }
+      .urg-btn .urg-label {
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .urg-btn .urg-sub {
+        font-size: 10px;
+        color: var(--muted);
+      }
+      .urg-btn.selected[data-urg="routine"] {
+        border-color: var(--green2);
+        background: #f0fff8;
+      }
+      .urg-btn.selected[data-urg="soon"] {
+        border-color: var(--gold2);
+        background: #fffbeb;
+      }
+      .urg-btn.selected[data-urg="urgent"] {
+        border-color: var(--red);
+        background: #fff5f5;
+        color: var(--red);
+      }
+
+      /* ═══ CALENDAR ═══ */
+      .cal-wrap {
+        margin-bottom: 24px;
+      }
+      .cal-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 14px;
+      }
+      .cal-month {
+        font-weight: 700;
+        font-size: 16px;
+        color: var(--navy);
+      }
+      .cal-arrow {
+        width: 34px;
+        height: 34px;
+        border: 2px solid var(--border);
+        border-radius: 10px;
+        cursor: pointer;
+        background: white;
+        color: var(--navy);
+        font-size: 16px;
+        display: grid;
+        place-items: center;
+        transition: all 0.2s;
+      }
+      .cal-arrow:hover {
+        border-color: var(--navy);
+        background: var(--navy);
+        color: white;
+      }
+      .cal-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+      }
+      .cal-dow {
+        text-align: center;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--muted2);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 6px 0;
+      }
+      .cal-day {
+        aspect-ratio: 1;
+        border-radius: 10px;
+        display: grid;
+        place-items: center;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        border: 2px solid transparent;
+        position: relative;
+      }
+      .cal-day:hover:not(.disabled):not(.past) {
+        background: var(--off2);
+        border-color: var(--border);
+      }
+      .cal-day.today {
+        border-color: var(--teal2);
+        color: var(--teal2);
+      }
+      .cal-day.selected {
+        background: var(--navy);
+        color: white;
+        border-color: var(--navy);
+      }
+      .cal-day.disabled,
+      .cal-day.past {
+        color: var(--border);
+        cursor: not-allowed;
+      }
+      .cal-day.has-slots::after {
+        content: "";
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--green3);
+        position: absolute;
+        bottom: 3px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .cal-day.selected.has-slots::after {
+        background: white;
+      }
+      .cal-day.busy::after {
+        background: var(--gold);
+      }
+      .cal-day.full::after {
+        background: var(--red2);
+      }
+      .cal-legend {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .cal-legend span {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .cal-legend .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+
+      /* ═══ TIME SLOTS ═══ */
+      .slots-section {
+        margin-bottom: 24px;
+      }
+      .slots-day-label {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        margin-bottom: 12px;
+      }
+      .slots-group {
+        margin-bottom: 16px;
+      }
+      .slots-group-title {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--muted2);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 8px;
+      }
+      .slots-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
+      @media (max-width: 400px) {
+        .slots-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      .slot {
+        padding: 10px 4px;
+        border: 2px solid var(--border);
+        border-radius: 10px;
+        text-align: center;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        color: var(--navy);
+        background: white;
+      }
+      .slot:hover:not(.taken) {
+        border-color: var(--teal2);
+        background: #f0fffd;
+      }
+      .slot.selected {
+        background: var(--teal2);
+        border-color: var(--teal2);
+        color: white;
+      }
+      .slot.taken {
+        background: var(--off2);
+        color: var(--muted2);
+        cursor: not-allowed;
+        text-decoration: line-through;
+        font-weight: 400;
+      }
+      .slot.peak::before {
+        content: "🔥";
+        font-size: 9px;
+        display: block;
+        margin-bottom: 1px;
+      }
+      .no-date-msg {
+        text-align: center;
+        padding: 32px 20px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .no-date-msg .big {
+        font-size: 36px;
+        margin-bottom: 8px;
+      }
+
+      /* ═══ FORM FIELDS ═══ */
+      .field {
+        margin-bottom: 18px;
+      }
+      .field label {
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--muted);
+        margin-bottom: 7px;
+      }
+      .field label .req {
+        color: var(--red);
+        margin-left: 2px;
+      }
+      .field input,
+      .field select,
+      .field textarea {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        font-family: "Outfit", sans-serif;
+        font-size: 14px;
+        color: var(--navy);
+        background: white;
+        outline: none;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+      .field select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7a99' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        padding-right: 38px;
+      }
+      .field input:focus,
+      .field select:focus,
+      .field textarea:focus {
+        border-color: var(--teal2);
+        box-shadow: 0 0 0 4px rgba(13, 115, 119, 0.1);
+      }
+      .field.error input,
+      .field.error select,
+      .field.error textarea {
+        border-color: var(--red);
+        box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
+      }
+      .field .err {
+        font-size: 11px;
+        color: var(--red);
+        margin-top: 4px;
+        display: none;
+      }
+      .field.error .err {
+        display: block;
+      }
+      .field textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+      .field .helper {
+        font-size: 11px;
+        color: var(--muted2);
+        margin-top: 4px;
+      }
+
+      .row2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      .row3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 12px;
+      }
+      @media (max-width: 480px) {
+        .row2,
+        .row3 {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Pain scale */
+      .pain-scale {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 4px;
+      }
+      .pain-btn {
+        flex: 1;
+        aspect-ratio: 1;
+        max-width: 44px;
+        border: 2px solid var(--border);
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 13px;
+        display: grid;
+        place-items: center;
+        transition: all 0.15s;
+        background: white;
+        color: var(--muted);
+      }
+      .pain-btn:hover {
+        border-color: var(--muted);
+      }
+      .pain-btn.p0 {
+        color: #22c55e;
+      }
+      .pain-btn.p1 {
+        color: #84cc16;
+      }
+      .pain-btn.p2 {
+        color: #eab308;
+      }
+      .pain-btn.p3 {
+        color: #f97316;
+      }
+      .pain-btn.p4 {
+        color: var(--red);
+      }
+      .pain-btn.selected {
+        border-color: currentColor;
+        background: currentColor;
+        color: white !important;
+      }
+      .pain-labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 10px;
+        color: var(--muted2);
+        margin-top: 4px;
+      }
+
+      /* Checkbox row */
+      .check-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 14px;
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: border-color 0.2s;
+        margin-bottom: 12px;
+      }
+      .check-row:hover {
+        border-color: var(--teal2);
+      }
+      .check-row input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--teal2);
+        flex-shrink: 0;
+        margin-top: 1px;
+        cursor: pointer;
+      }
+      .check-row .check-text {
+        font-size: 13px;
+        color: var(--text);
+        line-height: 1.5;
+      }
+      .check-row .check-text strong {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 1px;
+      }
+      .check-row .check-text span {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      /* ═══ COST ESTIMATOR ═══ */
+      .cost-card {
+        background: linear-gradient(135deg, var(--navy), var(--navy2));
+        border-radius: 16px;
+        padding: 20px;
+        color: white;
+        margin-bottom: 24px;
+      }
+      .cost-title {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        opacity: 0.6;
+        margin-bottom: 14px;
+      }
+      .cost-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        font-size: 14px;
+      }
+      .cost-row:last-child {
+        border-bottom: none;
+      }
+      .cost-row .cost-name {
+        opacity: 0.8;
+      }
+      .cost-row .cost-amt {
+        font-weight: 700;
+      }
+      .cost-total-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .cost-total-label {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        opacity: 0.6;
+      }
+      .cost-total-amt {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--teal3);
+      }
+      .cost-note {
+        font-size: 11px;
+        opacity: 0.45;
+        margin-top: 8px;
+      }
+
+      /* ═══ SUMMARY ═══ */
+      .summary-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      @media (max-width: 480px) {
+        .summary-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .sum-item {
+        background: var(--off);
+        border: 1px solid var(--border2);
+        border-radius: 12px;
+        padding: 14px 16px;
+      }
+      .sum-label {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--muted2);
+        margin-bottom: 5px;
+      }
+      .sum-val {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--navy);
+        line-height: 1.4;
+      }
+      .sum-icon {
+        font-size: 18px;
+        margin-bottom: 6px;
+      }
+
+      .wa-preview-box {
+        border: 2px dashed var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        margin-bottom: 24px;
+      }
+      .wa-preview-header {
+        background: var(--off2);
+        padding: 10px 16px;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .wa-preview-header .wa-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--wa);
+      }
+      .wa-body {
+        padding: 16px;
+        background: #efeae2;
+      }
+      .wa-bubble {
+        background: white;
+        border-radius: 14px 14px 14px 4px;
+        padding: 14px 16px;
+        font-size: 13.5px;
+        line-height: 1.7;
+        color: #2c3e50;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        white-space: pre-wrap;
+      }
+
+      /* ═══ BUTTONS ═══ */
+      .btn-row {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 4px;
+      }
+      .btn {
+        padding: 12px 24px;
+        border-radius: 12px;
+        font-family: "Outfit", sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .btn-ghost {
+        background: transparent;
+        border: 2px solid var(--border);
+        color: var(--muted);
+      }
+      .btn-ghost:hover {
+        border-color: var(--navy);
+        color: var(--navy);
+      }
+      .btn-navy {
+        background: var(--navy);
+        color: white;
+      }
+      .btn-navy:hover {
+        background: var(--navy2);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(11, 37, 69, 0.28);
+      }
+      .btn-teal {
+        background: var(--teal);
+        color: white;
+      }
+      .btn-teal:hover {
+        background: var(--teal2);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(13, 115, 119, 0.3);
+      }
+      .btn-wa-full {
+        width: 100%;
+        padding: 16px;
+        background: var(--wa);
+        color: white;
+        border: none;
+        border-radius: 14px;
+        font-family: "Outfit", sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+      .btn-wa-full:hover {
+        background: var(--wa2);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+      }
+
+      /* ═══ SUCCESS ═══ */
+      .success-wrap {
+        padding: 48px 28px;
+        text-align: center;
+      }
+      .success-ring {
+        width: 90px;
+        height: 90px;
+        margin: 0 auto 24px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--green3), var(--green2));
+        display: grid;
+        place-items: center;
+        font-size: 40px;
+        animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      }
+      @keyframes popIn {
+        from {
+          transform: scale(0);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      .success-wrap h2 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 2rem;
+        color: var(--navy);
+        margin-bottom: 8px;
+      }
+      .success-wrap p {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.7;
+        max-width: 380px;
+        margin: 0 auto 28px;
+      }
+      .success-ref {
+        display: inline-block;
+        background: var(--off);
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        padding: 10px 24px;
+        font-size: 13px;
+        color: var(--muted);
+        margin-bottom: 24px;
+      }
+      .success-ref strong {
+        color: var(--navy);
+        font-size: 16px;
+        font-family: monospace;
+        display: block;
+      }
+
+      /* ═══ SERVICES VIEW ═══ */
+      .svc-view-wrap {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 24px 16px 60px;
+      }
+      .svc-cats {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 24px;
+      }
+      .svc-cat-btn {
+        padding: 7px 16px;
+        border-radius: 30px;
+        border: 2px solid var(--border);
+        background: white;
+        font-family: "Outfit", sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--muted);
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .svc-cat-btn:hover,
+      .svc-cat-btn.active {
+        border-color: var(--teal2);
+        color: var(--teal2);
+        background: #f0fffd;
+      }
+      .svc-full-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 16px;
+      }
+      .svc-full-card {
+        background: white;
+        border-radius: var(--r);
+        box-shadow: var(--shadow-sm);
+        overflow: hidden;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .svc-full-card:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow);
+      }
+      .svc-card-top {
+        height: 6px;
+      }
+      .svc-card-body {
+        padding: 20px;
+      }
+      .svc-full-name {
+        font-weight: 700;
+        font-size: 15px;
+        color: var(--navy);
+        margin-bottom: 6px;
+      }
+      .svc-full-desc {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.5;
+        margin-bottom: 14px;
+      }
+      .svc-full-details {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 14px;
+      }
+      .svc-full-detail {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .svc-full-price-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .svc-full-price {
+        font-weight: 800;
+        font-size: 20px;
+        color: var(--navy);
+      }
+      .svc-book-btn {
+        padding: 9px 18px;
+        background: var(--teal2);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-family: "Outfit", sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .svc-book-btn:hover {
+        background: var(--teal);
+      }
+
+      /* ═══ TOAST ═══ */
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background: var(--navy);
+        color: white;
+        padding: 14px 20px;
+        border-radius: 14px;
+        font-size: 14px;
+        font-weight: 500;
+        box-shadow: var(--shadow-lg);
+        transform: translateY(80px);
+        opacity: 0;
+        transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        z-index: 999;
+        max-width: 320px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .toast.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      /* ═══ MISC ═══ */
+      .divider {
+        height: 1px;
+        background: var(--border2);
+        margin: 24px 0;
+      }
+      .info-banner {
+        background: linear-gradient(135deg, #f0f6ff, #e8f8ff);
+        border: 1px solid #c8e0ff;
+        border-radius: 12px;
+        padding: 12px 16px;
+        font-size: 13px;
+        color: var(--navy2);
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      .info-banner .ib-icon {
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+      .returning-form {
+        display: none;
+      }
+      .returning-form.visible {
+        display: block;
+      }
+
+      @media (max-width: 480px) {
+        .section {
+          padding: 22px 18px 26px;
+        }
+        .progress-wrap {
+          padding: 16px 18px 0;
+        }
+        .main {
+          margin-top: -40px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- TOP NAV -->
+    <nav class="topnav">
+      <a class="nav-brand" href="#">
+        <div class="nav-logo">🦷</div>
+        <div>
+          <div class="nav-name">SEG <span>Dental</span></div>
+        </div>
+      </a>
+      <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showView('booking')">
+          <span class="dot"></span>Book
+        </button>
+        <button class="nav-tab" onclick="showView('services')">
+          <span class="dot"></span>Services
+        </button>
+      </div>
+    </nav>
+
+    <!-- ═══════════════ BOOKING VIEW ═══════════════ -->
+    <div class="view active" id="view-booking">
+      <div class="hero">
+        <div class="hero-grid"></div>
+        <div class="hero-inner">
+          <div class="hero-pill">🦷 SEG Dental Care · Manzini</div>
+          <h1>Your Smile,<br /><em>Expertly Cared For</em></h1>
+          <p>
+            Book a professional dental appointment in minutes. Cleaning,
+            fillings, consultations and more — all in one place.
+          </p>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <div class="num">500+</div>
+              <div class="lbl">Happy Patients</div>
+            </div>
+            <div class="hero-stat">
+              <div class="num">13</div>
+              <div class="lbl">Services</div>
+            </div>
+            <div class="hero-stat">
+              <div class="num">E 250</div>
+              <div class="lbl">Starting From</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="main">
+        <div class="card">
+          <!-- Progress -->
+          <div class="progress-wrap">
+            <div class="progress-steps">
+              <div class="ps active" id="ps1">
+                <div class="ps-num">1</div>
+                <div class="ps-info">
+                  <div class="ps-label">Service</div>
+                  <div class="ps-sub">Choose treatment</div>
+                </div>
+              </div>
+              <div class="ps-line" id="pl1"></div>
+              <div class="ps active" id="ps2">
+                <div class="ps-num">2</div>
+                <div class="ps-info">
+                  <div class="ps-label">Schedule</div>
+                  <div class="ps-sub">Pick date & time</div>
+                </div>
+              </div>
+              <div class="ps-line" id="pl2"></div>
+              <div class="ps" id="ps3">
+                <div class="ps-num">3</div>
+                <div class="ps-info">
+                  <div class="ps-label">Your Info</div>
+                  <div class="ps-sub">Patient details</div>
+                </div>
+              </div>
+              <div class="ps-line" id="pl3"></div>
+              <div class="ps" id="ps4">
+                <div class="ps-num">4</div>
+                <div class="ps-info">
+                  <div class="ps-label">Review</div>
+                  <div class="ps-sub">Confirm & send</div>
+                </div>
+              </div>
+            </div>
+            <div class="progress-bar-track">
+              <div class="progress-bar-fill" id="pbar" style="width: 25%"></div>
+            </div>
+          </div>
+
+          <!-- STEP 1: Service & Urgency -->
+          <div class="section active" id="sec1">
+            <div class="sec-head">
+              <div class="sec-title">Choose Your Treatment</div>
+              <div class="sec-sub">
+                Select the service you need. Prices are estimates — final cost
+                confirmed at appointment.
+              </div>
+            </div>
+
+            <div class="urgency-row" id="urgency-row">
+              <div
+                class="urg-btn"
+                data-urg="routine"
+                onclick="selectUrgency(this)"
+              >
+                <div class="urg-icon">📅</div>
+                <div class="urg-label">Routine</div>
+                <div class="urg-sub">No pain</div>
+              </div>
+              <div
+                class="urg-btn"
+                data-urg="soon"
+                onclick="selectUrgency(this)"
+              >
+                <div class="urg-icon">⚡</div>
+                <div class="urg-label">Soon</div>
+                <div class="urg-sub">Mild discomfort</div>
+              </div>
+              <div
+                class="urg-btn"
+                data-urg="urgent"
+                onclick="selectUrgency(this)"
+              >
+                <div class="urg-icon">🚨</div>
+                <div class="urg-label">Urgent</div>
+                <div class="urg-sub">Pain / emergency</div>
+              </div>
+            </div>
+
+            <div id="urgent-banner" class="info-banner" style="display: none">
+              <span class="ib-icon">🚨</span>
+              <span
+                >For dental emergencies, please also call us directly at
+                <strong>7646 3358</strong> to ensure immediate assistance.</span
+              >
+            </div>
+
+            <div class="services-grid" id="services-grid">
+              <!-- Populated by JS -->
+            </div>
+            <div
+              id="svc-err"
+              style="
+                font-size: 12px;
+                color: var(--red);
+                margin: 8px 0 16px;
+                display: none;
+              "
+            >
+              ⚠ Please select at least one service to continue.
+            </div>
+
+            <div class="btn-row">
+              <button class="btn btn-navy" onclick="goSec(2)">
+                Schedule Appointment →
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 2: Calendar & Slots -->
+          <div class="section" id="sec2">
+            <div class="sec-head">
+              <div class="sec-title">Choose Date & Time</div>
+              <div class="sec-sub">
+                We're open Mon–Fri 08:00–17:00 and Sat 08:00–13:00
+              </div>
+            </div>
+
+            <div class="cal-wrap">
+              <div class="cal-nav">
+                <button class="cal-arrow" onclick="calNav(-1)">‹</button>
+                <div class="cal-month" id="cal-month"></div>
+                <button class="cal-arrow" onclick="calNav(1)">›</button>
+              </div>
+              <div class="cal-grid" id="cal-grid"></div>
+              <div class="cal-legend">
+                <span
+                  ><span class="dot" style="background: var(--green3)"></span>
+                  Available</span
+                >
+                <span
+                  ><span class="dot" style="background: var(--gold)"></span> Few
+                  slots</span
+                >
+                <span
+                  ><span class="dot" style="background: var(--border)"></span>
+                  Closed</span
+                >
+              </div>
+            </div>
+
+            <div class="slots-section" id="slots-section">
+              <div class="no-date-msg">
+                <div class="big">📅</div>
+                Select a date to see available times
+              </div>
+            </div>
+            <div
+              id="slot-err"
+              style="
+                font-size: 12px;
+                color: var(--red);
+                margin-bottom: 16px;
+                display: none;
+              "
+            >
+              ⚠ Please select a time slot.
+            </div>
+
+            <div class="btn-row">
+              <button class="btn btn-ghost" onclick="goSec(1)">← Back</button>
+              <button class="btn btn-navy" onclick="goSec(3)">
+                Patient Details →
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 3: Patient Details -->
+          <div class="section" id="sec3">
+            <div class="sec-head">
+              <div class="sec-title">Patient Information</div>
+              <div class="sec-sub">
+                Your details help us prepare for your visit
+              </div>
+            </div>
+
+            <div class="pt-toggle">
+              <div
+                class="pt-btn selected"
+                id="pt-new"
+                onclick="setPatientType('new')"
+              >
+                <div class="pt-icon">🆕</div>
+                <div class="pt-name">New Patient</div>
+                <div class="pt-desc">First time visiting us</div>
+              </div>
+              <div
+                class="pt-btn"
+                id="pt-returning"
+                onclick="setPatientType('returning')"
+              >
+                <div class="pt-icon">🔄</div>
+                <div class="pt-name">Returning Patient</div>
+                <div class="pt-desc">I've been here before</div>
+              </div>
+            </div>
+
+            <div class="returning-form" id="returning-form">
+              <div class="info-banner">
+                <span class="ib-icon">👋</span>
+                <span
+                  >Welcome back! Enter your phone number to pre-fill your
+                  details.</span
+                >
+              </div>
+              <div class="field">
+                <label>Registered Phone Number</label>
+                <input
+                  type="tel"
+                  id="ret-phone"
+                  placeholder="e.g. 76123456"
+                  oninput="lookupReturning()"
+                />
+              </div>
+              <div class="divider"></div>
+            </div>
+
+            <div class="row2">
+              <div class="field" id="f-fname">
+                <label>First Name <span class="req">*</span></label>
+                <input
+                  type="text"
+                  id="fname"
+                  placeholder="Sipho"
+                  oninput="clearE('f-fname')"
+                />
+                <div class="err">First name is required</div>
+              </div>
+              <div class="field" id="f-lname">
+                <label>Last Name <span class="req">*</span></label>
+                <input
+                  type="text"
+                  id="lname"
+                  placeholder="Dlamini"
+                  oninput="clearE('f-lname')"
+                />
+                <div class="err">Last name is required</div>
+              </div>
+            </div>
+
+            <div class="row2">
+              <div class="field" id="f-phone">
+                <label>WhatsApp Number <span class="req">*</span></label>
+                <input
+                  type="tel"
+                  id="phone"
+                  placeholder="76 123 456"
+                  oninput="clearE('f-phone')"
+                />
+                <div class="err">Enter a valid number</div>
+              </div>
+              <div class="field" id="f-age">
+                <label>Age</label>
+                <input
+                  type="number"
+                  id="age"
+                  placeholder="e.g. 32"
+                  min="1"
+                  max="120"
+                />
+              </div>
+            </div>
+
+            <div class="row2">
+              <div class="field">
+                <label>Gender</label>
+                <select id="gender">
+                  <option value="">Prefer not to say</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Medical Aid / Insurance</label>
+                <select id="insurance">
+                  <option value="">None / Self-pay</option>
+                  <option>Swazi National Provident Fund</option>
+                  <option>Swaziland National Insurance Corporation</option>
+                  <option>Corporate / Employer Cover</option>
+                  <option>Other Medical Aid</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Current Pain Level</label>
+              <div class="pain-scale" id="pain-scale">
+                <div class="pain-btn p0" data-p="0" onclick="selectPain(this)">
+                  0
+                </div>
+                <div class="pain-btn p0" data-p="1" onclick="selectPain(this)">
+                  1
+                </div>
+                <div class="pain-btn p1" data-p="2" onclick="selectPain(this)">
+                  2
+                </div>
+                <div class="pain-btn p1" data-p="3" onclick="selectPain(this)">
+                  3
+                </div>
+                <div class="pain-btn p2" data-p="4" onclick="selectPain(this)">
+                  4
+                </div>
+                <div class="pain-btn p2" data-p="5" onclick="selectPain(this)">
+                  5
+                </div>
+                <div class="pain-btn p3" data-p="6" onclick="selectPain(this)">
+                  6
+                </div>
+                <div class="pain-btn p3" data-p="7" onclick="selectPain(this)">
+                  7
+                </div>
+                <div class="pain-btn p4" data-p="8" onclick="selectPain(this)">
+                  8
+                </div>
+                <div class="pain-btn p4" data-p="9" onclick="selectPain(this)">
+                  9
+                </div>
+                <div class="pain-btn p4" data-p="10" onclick="selectPain(this)">
+                  10
+                </div>
+              </div>
+              <div class="pain-labels">
+                <span>None</span><span>Mild</span><span>Moderate</span
+                ><span>Severe</span><span>Worst</span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Describe Your Concern (Optional)</label>
+              <textarea
+                id="concern"
+                placeholder="e.g. Sensitivity on upper left tooth, visible cavity, regular cleaning needed…"
+              ></textarea>
+              <div class="helper">
+                This helps our dentist prepare before your visit.
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Allergies or Medical Conditions (Optional)</label>
+              <input
+                type="text"
+                id="allergies"
+                placeholder="e.g. Penicillin allergy, diabetes, hypertension…"
+              />
+            </div>
+
+            <label class="check-row">
+              <input type="checkbox" id="chk-reminder" />
+              <div class="check-text">
+                <strong>Send me a WhatsApp reminder</strong>
+                <span
+                  >We'll send a confirmation and 24hr reminder to your WhatsApp
+                  number</span
+                >
+              </div>
+            </label>
+
+            <label class="check-row">
+              <input type="checkbox" id="chk-firstvisit" />
+              <div class="check-text">
+                <strong>First dental visit ever</strong>
+                <span>We'll take extra care to make you feel comfortable</span>
+              </div>
+            </label>
+
+            <div class="btn-row">
+              <button class="btn btn-ghost" onclick="goSec(2)">← Back</button>
+              <button class="btn btn-navy" onclick="goSec(4)">
+                Review & Confirm →
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 4: Review & Confirm -->
+          <div class="section" id="sec4">
+            <div class="sec-head">
+              <div class="sec-title">Review Your Booking</div>
+              <div class="sec-sub">
+                Double-check everything before sending your appointment request
+                via WhatsApp.
+              </div>
+            </div>
+
+            <div class="cost-card" id="cost-card"></div>
+            <div class="summary-grid" id="summary-grid"></div>
+            <div class="wa-preview-box">
+              <div class="wa-preview-header">
+                <span class="wa-dot"></span> WhatsApp Message Preview
+              </div>
+              <div class="wa-body">
+                <div class="wa-bubble" id="wa-bubble"></div>
+              </div>
+            </div>
+
+            <button class="btn-wa-full" onclick="sendWA()">
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+                />
+              </svg>
+              Send Appointment Request via WhatsApp
+            </button>
+
+            <div style="text-align: center; margin-top: 12px">
+              <button
+                class="btn btn-ghost"
+                style="font-size: 13px; padding: 10px 20px"
+                onclick="goSec(3)"
+              >
+                ← Edit Details
+              </button>
+            </div>
+          </div>
+
+          <!-- SUCCESS -->
+          <div id="sec-success" style="display: none">
+            <div class="success-wrap">
+              <div class="success-ring">✓</div>
+              <h2>Request Sent!</h2>
+              <p>
+                Your WhatsApp has opened with your appointment request
+                pre-filled. Tap <strong>Send</strong> to confirm with SEG Dental
+                Care. We'll respond within 1 hour during working hours.
+              </p>
+              <div class="success-ref">
+                Your Reference: <strong id="ref-num"></strong>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  gap: 10px;
+                  justify-content: center;
+                  flex-wrap: wrap;
+                "
+              >
+                <button class="btn btn-navy" onclick="resetAll()">
+                  + New Booking
+                </button>
+                <button class="btn btn-ghost" onclick="showView('services')">
+                  View All Services
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /card -->
+      </div>
+      <!-- /main -->
+    </div>
+    <!-- /view-booking -->
+
+    <!-- ═══════════════ SERVICES VIEW ═══════════════ -->
+    <div class="view" id="view-services">
+      <div class="hero" style="padding-bottom: 60px">
+        <div class="hero-grid"></div>
+        <div class="hero-inner">
+          <div class="hero-pill">💰 Transparent Pricing</div>
+          <h1>Our <em>Services</em></h1>
+          <p>
+            Professional dental care with clear, upfront pricing. All services
+            performed by qualified dental professionals.
+          </p>
+        </div>
+      </div>
+      <div class="svc-view-wrap">
+        <div class="svc-cats" id="svc-cats">
+          <button class="svc-cat-btn active" onclick="filterSvc('all', this)">
+            All Services
+          </button>
+          <button class="svc-cat-btn" onclick="filterSvc('preventive', this)">
+            Preventive
+          </button>
+          <button class="svc-cat-btn" onclick="filterSvc('restorative', this)">
+            Restorative
+          </button>
+          <button class="svc-cat-btn" onclick="filterSvc('cosmetic', this)">
+            Cosmetic
+          </button>
+          <button class="svc-cat-btn" onclick="filterSvc('consultation', this)">
+            Consultation
+          </button>
+        </div>
+        <div class="svc-full-grid" id="svc-full-grid"></div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">✓ Done</div>
+
+    <script>
+      // ═══════════════════════════════════
+      //  DATA
+      // ═══════════════════════════════════
+      const SERVICES = [
+        {
+          id: "consult",
+          name: "Consultation Fee",
+          icon: "👨‍⚕️",
+          desc: "Comprehensive oral exam and personalised treatment plan from our dentist.",
+          price: 350,
+          dur: 30,
+          cat: "consultation",
+          badge: null,
+          color: "#0d7377",
+          includes: ["Full oral exam", "Treatment plan", "Q&A with dentist"],
+        },
+        {
+          id: "extraction",
+          name: "Tooth Extraction",
+          icon: "⚙️",
+          desc: "Safe, gentle removal of damaged, infected or overcrowded teeth.",
+          price: 250,
+          dur: 45,
+          cat: "restorative",
+          badge: null,
+          color: "#b45309",
+          includes: [
+            "Local anaesthesia",
+            "Extraction",
+            "Post-care instructions",
+          ],
+        },
+        {
+          id: "cleaning",
+          name: "Professional Teeth Cleaning",
+          icon: "🪥",
+          desc: "Removes plaque, tartar & surface stains for a healthier, fresher mouth.",
+          price: 500,
+          dur: 45,
+          cat: "preventive",
+          badge: "popular",
+          color: "#0d7377",
+          includes: [
+            "Plaque & tartar removal",
+            "Polish & fluoride",
+            "Oral hygiene advice",
+          ],
+        },
+        {
+          id: "filling",
+          name: "Filling",
+          icon: "✨",
+          desc: "Natural-looking composite resin restores decayed or damaged teeth invisibly.",
+          price: 800,
+          dur: 60,
+          cat: "restorative",
+          badge: "popular",
+          color: "#1e4f96",
+          includes: ["Decay removal", "Composite bonding", "Bite adjustment"],
+        },
+        {
+          id: "whitening",
+          name: "Teeth Whitening",
+          icon: "⭐",
+          desc: "Professional in-chair whitening for a brighter, more confident smile.",
+          price: 1000,
+          dur: 60,
+          cat: "cosmetic",
+          badge: "new",
+          color: "#d97706",
+          includes: ["Whitening gel", "LED activation", "Take-home kit"],
+        },
+        {
+          id: "rct",
+          name: "R. C. T",
+          icon: "🔧",
+          desc: "Root canal treatment to save an infected or severely damaged tooth.",
+          price: 3000,
+          dur: 90,
+          cat: "restorative",
+          badge: null,
+          color: "#7c3aed",
+          includes: ["Infection removal", "Canal shaping", "Sealing & restoration"],
+        },
+        {
+          id: "denture1",
+          name: "Denture (1–3 teeth)",
+          icon: "🦷",
+          desc: "Partial denture replacement for 1 to 3 missing teeth.",
+          price: 2000,
+          dur: 60,
+          cat: "restorative",
+          badge: null,
+          color: "#0e7c4a",
+          includes: ["Custom fitting", "Natural appearance", "Comfortable fit"],
+        },
+        {
+          id: "denture4",
+          name: "Denture (4–5 teeth)",
+          icon: "🦷",
+          desc: "Partial denture replacement for 4 to 5 missing teeth.",
+          price: 3500,
+          dur: 60,
+          cat: "restorative",
+          badge: null,
+          color: "#0e7c4a",
+          includes: ["Custom fitting", "Natural appearance", "Comfortable fit"],
+        },
+        {
+          id: "denture6",
+          name: "Denture (6–8 teeth)",
+          icon: "🦷",
+          desc: "Partial denture replacement for 6 to 8 missing teeth.",
+          price: 4500,
+          dur: 75,
+          cat: "restorative",
+          badge: null,
+          color: "#0e7c4a",
+          includes: ["Custom fitting", "Natural appearance", "Comfortable fit"],
+        },
+        {
+          id: "denture10",
+          name: "Denture (10 or more)",
+          icon: "🦷",
+          desc: "Full or extensive denture replacement for 10 or more missing teeth.",
+          price: 6000,
+          dur: 90,
+          cat: "restorative",
+          badge: null,
+          color: "#0e7c4a",
+          includes: ["Full arch restoration", "Custom fitting", "Natural appearance"],
+        },
+        {
+          id: "braces",
+          name: "Braces",
+          icon: "😁",
+          desc: "Orthodontic braces to straighten teeth and correct bite alignment.",
+          price: 12000,
+          dur: 60,
+          cat: "cosmetic",
+          badge: null,
+          color: "#0891b2",
+          includes: ["Consultation & fitting", "Regular adjustments", "Retainer guidance"],
+        },
+        {
+          id: "bridges",
+          name: "Bridges",
+          icon: "🌉",
+          desc: "Dental bridges to fill gaps left by one or more missing teeth.",
+          price: 15000,
+          dur: 90,
+          cat: "restorative",
+          badge: null,
+          color: "#163c70",
+          includes: ["Crown preparation", "Custom bridge", "Permanent bonding"],
+        },
+        {
+          id: "implant",
+          name: "Implant",
+          icon: "🔩",
+          desc: "Permanent titanium implant for a natural-looking, long-lasting tooth replacement.",
+          price: 25000,
+          dur: 120,
+          cat: "restorative",
+          badge: null,
+          color: "#1e4f96",
+          includes: ["Titanium post", "Abutment placement", "Crown fitting"],
+        },
+      ];
+
+      let state = {
+        services: [],
+        urgency: "routine",
+        date: null,
+        slot: null,
+        patientType: "new",
+        pain: null,
+        curStep: 1,
+        calYear: null,
+        calMonth: null,
+      };
+
+      // ═══════════════════════════════════
+      //  INIT
+      // ═══════════════════════════════════
+      const now = new Date();
+      state.calYear = now.getFullYear();
+      state.calMonth = now.getMonth();
+
+      window.addEventListener("DOMContentLoaded", () => {
+        renderServiceCards();
+        renderCalendar();
+        renderServicesPage();
+      });
+
+      // ═══════════════════════════════════
+      //  VIEW SWITCHING
+      // ═══════════════════════════════════
+      function showView(v) {
+        document
+          .querySelectorAll(".view")
+          .forEach((el) => el.classList.remove("active"));
+        document.getElementById("view-" + v).classList.add("active");
+        document.querySelectorAll(".nav-tab").forEach((t, i) => {
+          t.classList.remove("active");
+          const views = ["booking", "services"];
+          if (views[i] === v) t.classList.add("active");
+        });
+      }
+
+      // ═══════════════════════════════════
+      //  SERVICE CARDS (booking step)
+      // ═══════════════════════════════════
+      function renderServiceCards() {
+        const g = document.getElementById("services-grid");
+        g.innerHTML = SERVICES.map(
+          (s) => `
+    <div class="svc-card" data-id="${s.id}" onclick="toggleService('${s.id}',this)">
+      <div class="svc-check">✓</div>
+      ${s.badge ? `<div class="svc-badge badge-${s.badge === "popular" ? "popular" : s.badge === "urgent" ? "urgent" : "new"}">${s.badge}</div>` : ""}
+      <div class="svc-icon">${s.icon}</div>
+      <div class="svc-name">${s.name}</div>
+      <div class="svc-desc">${s.desc}</div>
+      <div class="svc-price-row">
+        <span class="svc-price">E ${s.price.toLocaleString()}</span>
+        <span class="svc-dur">~${s.dur} min</span>
+      </div>
+    </div>`,
+        ).join("");
+      }
+
+      function toggleService(id, el) {
+        const idx = state.services.indexOf(id);
+        if (idx === -1) {
+          state.services.push(id);
+          el.classList.add("selected");
+        } else {
+          state.services.splice(idx, 1);
+          el.classList.remove("selected");
+        }
+        document.getElementById("svc-err").style.display = "none";
+      }
+
+      function selectUrgency(el) {
+        document
+          .querySelectorAll(".urg-btn")
+          .forEach((b) => b.classList.remove("selected"));
+        el.classList.add("selected");
+        state.urgency = el.dataset.urg;
+        document.getElementById("urgent-banner").style.display =
+          state.urgency === "urgent" ? "flex" : "none";
+      }
+
+      // ═══════════════════════════════════
+      //  CALENDAR
+      // ═══════════════════════════════════
+      const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      const MONTHS = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+
+      
+      // Day availability: 0=closed, 1=available, 2=few slots
+      function getDayStatus(y, m, d) {
+        const dt = new Date(y, m, d);
+        const dow = dt.getDay();
+        if (dow === 0) return 0; // Sunday closed
+        const seed = (y * 100 + m) * 31 + d;
+        const r = ((seed * 1103515245 + 12345) & 0x7fffffff) % 10;
+        if (r < 4) return 2; // few slots
+        return 1; // available
+      }
+
+      function renderCalendar() {
+        const { calYear: y, calMonth: m } = state;
+        document.getElementById("cal-month").textContent = `${MONTHS[m]} ${y}`;
+        const g = document.getElementById("cal-grid");
+        let html = DAYS.map((d) => `<div class="cal-dow">${d}</div>`).join("");
+        const first = new Date(y, m, 1).getDay();
+        for (let i = 0; i < first; i++) html += `<div></div>`;
+        const days = new Date(y, m + 1, 0).getDate();
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        for (let d = 1; d <= days; d++) {
+          const dt = new Date(y, m, d);
+          dt.setHours(0, 0, 0, 0);
+          const isPast = dt < today;
+          const status = getDayStatus(y, m, d);
+          const isClosed = status === 0;
+          const isToday = dt.getTime() === today.getTime();
+          const isSelected =
+            state.date &&
+            state.date.getFullYear() === y &&
+            state.date.getMonth() === m &&
+            state.date.getDate() === d;
+          let cls = "cal-day";
+          if (isPast || isClosed) cls += isPast ? " past" : " disabled";
+          else {
+            if (status === 1) cls += " has-slots";
+            if (status === 2) cls += " has-slots busy";
+          }
+          if (isToday) cls += " today";
+          if (isSelected) cls += " selected";
+          const clickable = !isPast && !isClosed;
+          html += `<div class="${cls}" ${clickable ? `onclick="selectDay(${y},${m},${d})"` : ""}>${d}</div>`;
+        }
+        g.innerHTML = html;
+      }
+
+      function calNav(dir) {
+        state.calMonth += dir;
+        if (state.calMonth > 11) {
+          state.calMonth = 0;
+          state.calYear++;
+        }
+        if (state.calMonth < 0) {
+          state.calMonth = 11;
+          state.calYear--;
+        }
+        renderCalendar();
+      }
+
+      function selectDay(y, m, d) {
+        state.date = new Date(y, m, d);
+        state.slot = null;
+        renderCalendar();
+        renderSlots();
+      }
+
+      // ═══════════════════════════════════
+      //  TIME SLOTS
+      // ═══════════════════════════════════
+      const AM_SLOTS = [
+        "08:00",
+        "08:30",
+        "09:00",
+        "09:30",
+        "10:00",
+        "10:30",
+        "11:00",
+        "11:30",
+      ];
+      const PM_SLOTS = [
+        "12:00",
+        "13:00",
+        "14:00",
+        "14:30",
+        "15:00",
+        "15:30",
+        "16:00",
+        "16:30",
+      ];
+
+      function renderSlots() {
+        const wrap = document.getElementById("slots-section");
+        if (!state.date) {
+          wrap.innerHTML = `<div class="no-date-msg"><div class="big">📅</div>Select a date to see available times</div>`;
+          return;
+        }
+        const dow = state.date.getDay();
+        const isSat = dow === 6;
+        const dateStr = state.date.toLocaleDateString("en-ZA", {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+        });
+        const seed = state.date.getDate() + state.date.getMonth() * 31;
+
+        function slotHtml(slots) {
+          return slots
+            .map((t, i) => {
+              const s = (seed * 7 + i * 13) % 10;
+              const taken = s < 3;
+              const isPeak = t === "09:00" || t === "09:30" || t === "10:00";
+              const isSelected = state.slot === t;
+              let cls = "slot";
+              if (taken) cls += " taken";
+              if (isSelected) cls += " selected";
+              if (isPeak && !taken) cls += " peak";
+              return `<div class="${cls}" ${!taken ? `onclick="selectSlot('${t}',this)"` : ""}>${t}</div>`;
+            })
+            .join("");
+        }
+
+        const amSlots = isSat ? AM_SLOTS.slice(0, 4) : AM_SLOTS;
+        const pmSlots = isSat ? [] : PM_SLOTS;
+
+        wrap.innerHTML = `
+    <div class="slots-day-label">Available times for ${dateStr}</div>
+    <div class="slots-group">
+      <div class="slots-group-title">☀️ Morning</div>
+      <div class="slots-grid">${slotHtml(amSlots)}</div>
+    </div>
+    ${
+      pmSlots.length
+        ? `<div class="slots-group">
+      <div class="slots-group-title">🌤 Afternoon</div>
+      <div class="slots-grid">${slotHtml(pmSlots)}</div>
+    </div>`
+        : ""
+    }
+  `;
+      }
+
+      function selectSlot(t, el) {
+        document
+          .querySelectorAll(".slot")
+          .forEach((s) => s.classList.remove("selected"));
+        el.classList.add("selected");
+        state.slot = t;
+        document.getElementById("slot-err").style.display = "none";
+      }
+
+      // ═══════════════════════════════════
+      //  PATIENT TYPE
+      // ═══════════════════════════════════
+      function setPatientType(t) {
+        state.patientType = t;
+        document
+          .getElementById("pt-new")
+          .classList.toggle("selected", t === "new");
+        document
+          .getElementById("pt-returning")
+          .classList.toggle("selected", t === "returning");
+        document
+          .getElementById("returning-form")
+          .classList.toggle("visible", t === "returning");
+      }
+
+      function lookupReturning() {
+        const p = document.getElementById("ret-phone").value;
+        if (p.length >= 8) {
+          // Simulate lookup
+          document.getElementById("fname").value = "Nomvula";
+          document.getElementById("lname").value = "Dlamini";
+          document.getElementById("phone").value = p;
+          showToast("👋 Welcome back, Nomvula!");
+        }
+      }
+
+      // ═══════════════════════════════════
+      //  PAIN SCALE
+      // ═══════════════════════════════════
+      function selectPain(el) {
+        document
+          .querySelectorAll(".pain-btn")
+          .forEach((b) => b.classList.remove("selected"));
+        el.classList.add("selected");
+        state.pain = +el.dataset.p;
+      }
+
+      // ═══════════════════════════════════
+      //  STEP NAVIGATION
+      // ═══════════════════════════════════
+      function goSec(n) {
+        if (n > state.curStep) {
+          if (state.curStep === 1) {
+            if (state.services.length === 0) {
+              document.getElementById("svc-err").style.display = "block";
+              return;
+            }
+          }
+          if (state.curStep === 2) {
+            if (!state.date) {
+              showToast("⚠ Please select a date");
+              return;
+            }
+            if (!state.slot) {
+              document.getElementById("slot-err").style.display = "block";
+              return;
+            }
+          }
+          if (state.curStep === 3) {
+            if (!validateStep3()) return;
+          }
+        }
+        state.curStep = n;
+
+        // Update step indicators
+        for (let i = 1; i <= 4; i++) {
+          const ps = document.getElementById("ps" + i);
+          ps.classList.remove("active", "done");
+          if (i < n) ps.classList.add("done");
+          if (i === n) ps.classList.add("active");
+        }
+        for (let i = 1; i <= 3; i++) {
+          const pl = document.getElementById("pl" + i);
+          pl.classList.toggle("done", i < n);
+        }
+        document.getElementById("pbar").style.width = n * 25 + "%";
+
+        // Show section
+        document
+          .querySelectorAll(".section")
+          .forEach((s) => s.classList.remove("active"));
+        document.getElementById("sec" + n)?.classList.add("active");
+        document.getElementById("sec-success").style.display = "none";
+
+        if (n === 4) buildReview();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function validateStep3() {
+        let ok = true;
+        const checks = [
+          { id: "fname", wrap: "f-fname", fn: (v) => v.trim().length > 0 },
+          { id: "lname", wrap: "f-lname", fn: (v) => v.trim().length > 0 },
+          {
+            id: "phone",
+            wrap: "f-phone",
+            fn: (v) => /^[0-9\s+]{7,15}$/.test(v.trim()),
+          },
+        ];
+        checks.forEach((c) => {
+          const v = document.getElementById(c.id).value;
+          document.getElementById(c.wrap).classList.toggle("error", !c.fn(v));
+          if (!c.fn(v)) ok = false;
+        });
+        return ok;
+      }
+      function clearE(id) {
+        document.getElementById(id)?.classList.remove("error");
+      }
+
+      // ═══════════════════════════════════
+      //  BUILD REVIEW
+      // ═══════════════════════════════════
+      function buildReview() {
+        const fname = document.getElementById("fname").value.trim();
+        const lname = document.getElementById("lname").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const age = document.getElementById("age").value;
+        const gender = document.getElementById("gender").value;
+        const insurance = document.getElementById("insurance").value;
+        const concern = document.getElementById("concern").value.trim();
+        const allergies = document.getElementById("allergies").value.trim();
+        const firstVisit = document.getElementById("chk-firstvisit").checked;
+        const reminder = document.getElementById("chk-reminder").checked;
+
+        const dateStr = state.date?.toLocaleDateString("en-ZA", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+        const svcs = SERVICES.filter((s) => state.services.includes(s.id));
+        const total = svcs.reduce((a, s) => a + s.price, 0);
+        const totalDur = svcs.reduce((a, s) => a + s.dur, 0);
+
+        // Cost card
+        document.getElementById("cost-card").innerHTML = `
+    <div class="cost-title">💰 Cost Estimate</div>
+    ${svcs.map((s) => `<div class="cost-row"><span class="cost-name">${s.icon} ${s.name}</span><span class="cost-amt">E ${s.price.toLocaleString()}</span></div>`).join("")}
+    ${insurance && insurance !== "" && insurance !== "None / Self-pay" ? `<div class="cost-row"><span class="cost-name">🏥 Medical Aid (contact clinic)</span><span class="cost-amt">–</span></div>` : ""}
+    <div class="cost-total-row">
+      <span class="cost-total-label">Estimated Total</span>
+      <span class="cost-total-amt">E ${total.toLocaleString()}</span>
+    </div>
+    <div class="cost-note">Estimate only. Final pricing confirmed at appointment. ~${totalDur} min total duration.</div>
+  `;
+
+        // Summary grid
+        document.getElementById("summary-grid").innerHTML = [
+          {
+            icon: "👤",
+            label: "Patient",
+            val: `${fname} ${lname}${age ? ", " + age + "yrs" : ""}${gender ? " (" + gender + ")" : ""}`,
+          },
+          { icon: "📞", label: "WhatsApp", val: phone },
+          { icon: "📅", label: "Date", val: dateStr },
+          { icon: "⏰", label: "Time", val: state.slot },
+          {
+            icon: "🦷",
+            label: "Services",
+            val: svcs.map((s) => s.name).join(", "),
+          },
+          {
+            icon: "🚨",
+            label: "Urgency",
+            val: state.urgency.charAt(0).toUpperCase() + state.urgency.slice(1),
+          },
+          ...(state.pain !== null
+            ? [{ icon: "😣", label: "Pain Level", val: `${state.pain}/10` }]
+            : []),
+          ...(insurance
+            ? [{ icon: "🏥", label: "Insurance", val: insurance || "Self-pay" }]
+            : []),
+          ...(concern ? [{ icon: "📝", label: "Concern", val: concern }] : []),
+          ...(allergies
+            ? [{ icon: "⚠️", label: "Allergies", val: allergies }]
+            : []),
+        ]
+          .map(
+            (r) => `
+    <div class="sum-item">
+      <div class="sum-icon">${r.icon}</div>
+      <div class="sum-label">${r.label}</div>
+      <div class="sum-val">${r.val}</div>
+    </div>`,
+          )
+          .join("");
+
+        // WA Message
+        const urgEmoji = { routine: "📅", soon: "⚡", urgent: "🚨" }[
+          state.urgency
+        ];
+        const msg = `🦷 *SEG DENTAL CARE – APPOINTMENT REQUEST*
+━━━━━━━━━━━━━━━━━━━━
+
+👤 *Patient:* ${fname} ${lname}${age ? " (Age: " + age + ")" : ""}${gender ? " · " + gender : ""}
+📞 *WhatsApp:* ${phone}
+${urgEmoji} *Urgency:* ${state.urgency.toUpperCase()}
+${firstVisit ? "🆕 *First time patient*\n" : ""}
+━━━━━━━━━━━━━━━━━━━━
+
+📅 *Requested Date:* ${dateStr}
+⏰ *Requested Time:* ${state.slot}
+
+━━━━━━━━━━━━━━━━━━━━
+
+🔧 *Service(s) Requested:*
+${svcs.map((s) => `  • ${s.icon} ${s.name} — E ${s.price.toLocaleString()}`).join("\n")}
+
+💰 *Estimated Total:* E ${total.toLocaleString()}
+⏱ *Est. Duration:* ~${totalDur} minutes
+${insurance ? `🏥 *Insurance:* ${insurance}\n` : ""}${state.pain !== null ? `😣 *Pain Level:* ${state.pain}/10\n` : ""}
+━━━━━━━━━━━━━━━━━━━━
+${concern ? `📝 *Concern:* ${concern}\n` : ""}${allergies ? `⚠️ *Allergies/Conditions:* ${allergies}\n` : ""}${reminder ? `🔔 *Reminder Requested:* Yes — please send WhatsApp confirmation\n` : ""}
+_Please confirm my appointment at your earliest convenience. Thank you!_`;
+
+        document.getElementById("wa-bubble").dataset.raw = msg;
+        document.getElementById("wa-bubble").innerHTML = msg
+          .replace(/\*(.*?)\*/g, "<strong>$1</strong>")
+          .replace(/_(.*?)_/g, "<em>$1</em>")
+          .replace(
+            /━+/g,
+            '<span style="color:#ccc">━━━━━━━━━━━━━━━━━━━━</span>',
+          );
+      }
+
+      // ═══════════════════════════════════
+      //  SEND WHATSAPP
+      // ═══════════════════════════════════
+      function sendWA() {
+        const msg = document.getElementById("wa-bubble").dataset.raw;
+        const url = `https://wa.me/26876463358?text=${encodeURIComponent(msg)}`;
+        window.open(url, "_blank");
+
+        // Save to localStorage
+        const initials = (document.getElementById("fname").value.trim()[0] || "X").toUpperCase() + (document.getElementById("lname").value.trim()[0] || "X").toUpperCase(); const num = String(Math.floor(1000 + Math.random() * 9000)); const ref = "SEG-" + initials + num;
+        const booking = {
+          ref,
+          name:
+            document.getElementById("fname").value +
+            " " +
+            document.getElementById("lname").value,
+          services: state.services,
+          date: state.date?.toISOString(),
+          slot: state.slot,
+          ts: Date.now(),
+        };
+        const all = JSON.parse(localStorage.getItem("seg_bookings") || "[]");
+        all.push(booking);
+        localStorage.setItem("seg_bookings", JSON.stringify(all));
+        localStorage.setItem(
+          "seg_last_patient",
+          JSON.stringify({
+            name:
+              document.getElementById("fname").value +
+              " " +
+              document.getElementById("lname").value,
+            phone: document.getElementById("phone").value,
+          }),
+        );
+
+        // Show success
+        document
+          .querySelectorAll(".section")
+          .forEach((s) => s.classList.remove("active"));
+        document.getElementById("sec-success").style.display = "block";
+        document.getElementById("ref-num").textContent = ref;
+        document.getElementById("pbar").style.width = "100%";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function resetAll() {
+        state.services = [];
+        state.urgency = "routine";
+        state.date = null;
+        state.slot = null;
+        state.patientType = "new";
+        state.pain = null;
+        state.curStep = 1;
+
+        document
+          .querySelectorAll(".svc-card")
+          .forEach((c) => c.classList.remove("selected"));
+        document
+          .querySelectorAll(".urg-btn")
+          .forEach((b) => b.classList.remove("selected"));
+        document
+          .querySelectorAll(".pain-btn")
+          .forEach((b) => b.classList.remove("selected"));
+        ["fname", "lname", "phone", "age", "concern", "allergies"].forEach(
+          (id) => {
+            const el = document.getElementById(id);
+            if (el) el.value = "";
+          },
+        );
+        document.getElementById("gender").value = "";
+        document.getElementById("insurance").value = "";
+        document.getElementById("chk-reminder").checked = false;
+        document.getElementById("chk-firstvisit").checked = false;
+        document.getElementById("urgent-banner").style.display = "none";
+        document.getElementById("sec-success").style.display = "none";
+        setPatientType("new");
+
+        goSec(1);
+        for (let i = 1; i <= 4; i++) {
+          const ps = document.getElementById("ps" + i);
+          ps.classList.remove("active", "done");
+          if (i === 1) ps.classList.add("active");
+        }
+        for (let i = 1; i <= 3; i++)
+          document.getElementById("pl" + i).classList.remove("done");
+        document.getElementById("pbar").style.width = "25%";
+
+        state.calYear = now.getFullYear();
+        state.calMonth = now.getMonth();
+        renderCalendar();
+        renderSlots();
+      }
+
+      // ═══════════════════════════════════
+      //  SERVICES PAGE
+      // ═══════════════════════════════════
+      function renderServicesPage(cat = "all") {
+        const svcs =
+          cat === "all" ? SERVICES : SERVICES.filter((s) => s.cat === cat);
+        document.getElementById("svc-full-grid").innerHTML = svcs
+          .map(
+            (s) => `
+    <div class="svc-full-card">
+      <div class="svc-card-top" style="background:${s.color}"></div>
+      <div class="svc-card-body">
+        ${s.badge ? `<div class="svc-badge badge-${s.badge === "popular" ? "popular" : "new"}">${s.badge}</div>` : ""}
+        <div style="font-size:32px;margin-bottom:10px">${s.icon}</div>
+        <div class="svc-full-name">${s.name}</div>
+        <div class="svc-full-desc">${s.desc}</div>
+        <div class="svc-full-details">
+          ${s.includes.map((i) => `<div class="svc-full-detail"><span style="color:var(--green2)">✓</span>${i}</div>`).join("")}
+          <div class="svc-full-detail">⏱ ~${s.dur} minutes</div>
+        </div>
+        <div class="svc-full-price-row">
+          <div class="svc-full-price">E ${s.price.toLocaleString()}</div>
+          <button class="svc-book-btn" onclick="quickBook('${s.id}')">Book Now</button>
+        </div>
+      </div>
+    </div>`,
+          )
+          .join("");
+      }
+
+      function filterSvc(cat, btn) {
+        document
+          .querySelectorAll(".svc-cat-btn")
+          .forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderServicesPage(cat);
+      }
+
+      function quickBook(id) {
+        state.services = [id];
+        document.querySelectorAll(".svc-card").forEach((c) => {
+          c.classList.toggle("selected", c.dataset.id === id);
+        });
+        showView("booking");
+        goSec(2);
+      }
+
+      // ═══════════════════════════════════
+      //  TOAST
+      // ═══════════════════════════════════
+      let toastTimer;
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => t.classList.remove("show"), 3000);
+      }
+    </script>
+  </body>
+</html>
