@@ -1731,11 +1731,10 @@
               <div class="field">
                 <label>Medical Aid / Insurance</label>
                 <select id="insurance">
-                  <option value="">None / Self-pay</option>
-                  <option>Swazi National Provident Fund</option>
-                  <option>Swaziland National Insurance Corporation</option>
-                  <option>Corporate / Employer Cover</option>
-                  <option>Other Medical Aid</option>
+                  <option value="">None / Self-pay (Cash)</option>
+                  <option>Eswatini Med</option>
+                  <option>Oracle Health</option>
+                  <option>Lidwala Insurance</option>
                 </select>
               </div>
             </div>
@@ -2034,7 +2033,11 @@
           cat: "restorative",
           badge: null,
           color: "#7c3aed",
-          includes: ["Infection removal", "Canal shaping", "Sealing & restoration"],
+          includes: [
+            "Infection removal",
+            "Canal shaping",
+            "Sealing & restoration",
+          ],
         },
         {
           id: "denture1",
@@ -2082,7 +2085,11 @@
           cat: "restorative",
           badge: null,
           color: "#0e7c4a",
-          includes: ["Full arch restoration", "Custom fitting", "Natural appearance"],
+          includes: [
+            "Full arch restoration",
+            "Custom fitting",
+            "Natural appearance",
+          ],
         },
         {
           id: "braces",
@@ -2090,11 +2097,16 @@
           icon: "😁",
           desc: "Orthodontic braces to straighten teeth and correct bite alignment.",
           price: 12000,
+          priceNote: "/Jaw",
           dur: 60,
           cat: "cosmetic",
           badge: null,
           color: "#0891b2",
-          includes: ["Consultation & fitting", "Regular adjustments", "Retainer guidance"],
+          includes: [
+            "Consultation & fitting",
+            "Regular adjustments",
+            "Retainer guidance",
+          ],
         },
         {
           id: "bridges",
@@ -2176,7 +2188,7 @@
       <div class="svc-name">${s.name}</div>
       <div class="svc-desc">${s.desc}</div>
       <div class="svc-price-row">
-        <span class="svc-price">E ${s.price.toLocaleString()}</span>
+        <span class="svc-price">E ${s.price.toLocaleString()}${s.priceNote || ""}</span>
         <span class="svc-dur">~${s.dur} min</span>
       </div>
     </div>`,
@@ -2224,7 +2236,6 @@
         "December",
       ];
 
-      
       // Day availability: 0=closed, 1=available, 2=few slots
       function getDayStatus(y, m, d) {
         const dt = new Date(y, m, d);
@@ -2515,8 +2526,8 @@
         // Cost card
         document.getElementById("cost-card").innerHTML = `
     <div class="cost-title">💰 Cost Estimate</div>
-    ${svcs.map((s) => `<div class="cost-row"><span class="cost-name">${s.icon} ${s.name}</span><span class="cost-amt">E ${s.price.toLocaleString()}</span></div>`).join("")}
-    ${insurance && insurance !== "" && insurance !== "None / Self-pay" ? `<div class="cost-row"><span class="cost-name">🏥 Medical Aid (contact clinic)</span><span class="cost-amt">–</span></div>` : ""}
+    ${svcs.map((s) => `<div class="cost-row"><span class="cost-name">${s.icon} ${s.name}</span><span class="cost-amt">E ${s.price.toLocaleString()}${s.priceNote || ""}</span></div>`).join("")}
+    ${insurance && insurance !== "" && insurance !== "None / Self-pay (Cash)" ? `<div class="cost-row"><span class="cost-name">🏥 Medical Aid (contact clinic)</span><span class="cost-amt">–</span></div>` : ""}
     <div class="cost-total-row">
       <span class="cost-total-label">Estimated Total</span>
       <span class="cost-total-amt">E ${total.toLocaleString()}</span>
@@ -2584,7 +2595,7 @@ ${firstVisit ? "🆕 *First time patient*\n" : ""}
 ━━━━━━━━━━━━━━━━━━━━
 
 🔧 *Service(s) Requested:*
-${svcs.map((s) => `  • ${s.icon} ${s.name} — E ${s.price.toLocaleString()}`).join("\n")}
+${svcs.map((s) => `  • ${s.icon} ${s.name} — E ${s.price.toLocaleString()}${s.priceNote || ""}`).join("\n")}
 
 💰 *Estimated Total:* E ${total.toLocaleString()}
 ⏱ *Est. Duration:* ~${totalDur} minutes
@@ -2612,7 +2623,15 @@ _Please confirm my appointment at your earliest convenience. Thank you!_`;
         window.open(url, "_blank");
 
         // Save to localStorage
-        const initials = (document.getElementById("fname").value.trim()[0] || "X").toUpperCase() + (document.getElementById("lname").value.trim()[0] || "X").toUpperCase(); const num = String(Math.floor(1000 + Math.random() * 9000)); const ref = "SEG-" + initials + num;
+        const initials =
+          (
+            document.getElementById("fname").value.trim()[0] || "X"
+          ).toUpperCase() +
+          (
+            document.getElementById("lname").value.trim()[0] || "X"
+          ).toUpperCase();
+        const num = String(Math.floor(1000 + Math.random() * 9000));
+        const ref = "SEG-" + initials + num;
         const booking = {
           ref,
           name:
@@ -2717,7 +2736,7 @@ _Please confirm my appointment at your earliest convenience. Thank you!_`;
           <div class="svc-full-detail">⏱ ~${s.dur} minutes</div>
         </div>
         <div class="svc-full-price-row">
-          <div class="svc-full-price">E ${s.price.toLocaleString()}</div>
+          <div class="svc-full-price">E ${s.price.toLocaleString()}${s.priceNote || ""}</div>
           <button class="svc-book-btn" onclick="quickBook('${s.id}')">Book Now</button>
         </div>
       </div>
